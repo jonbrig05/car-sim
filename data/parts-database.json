@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "name": "DE5 Integra Type S parts database",
+    "researched": "2026-08-08",
+    "notes": "Prices are approximate street prices in USD as researched. Strings starting with ~ are estimates. Verify fitment before ordering; entries flag FL5 (Civic Type R) crossover parts where the DE5 is not explicitly listed by the manufacturer."
+  },
+  "vehicle": {
+    "car": "Acura Integra Type S",
+    "chassis": "DE5",
+    "years": "2024-2026",
+    "platform_note": "Shares platform with FL5 Honda Civic Type R; many FL5 parts cross over, but Integra-specific bumpers, hatch, dash and doors do NOT.",
+    "oem_wheel": {
+      "size": "19x9.5",
+      "offset": "+60",
+      "bolt_pattern": "5x120",
+      "center_bore_mm": 64.1,
+      "tire": "265/30ZR19 93Y Michelin Pilot Sport 4S",
+      "weight_lbs": "~26/wheel",
+      "notes": "High +60 offset due to dual-axis front strut. Aftermarket consensus: 18x9.5 +45 (safe, clears Brembo 4-pot), 18x10 +40 aggressive. Needs 60-degree taper M14x1.5 lug nuts (OEM are ball seat); 72.6mm-bore JDM wheels need 72.6-to-64.1 hub rings."
+    },
+    "exhaust_config": "Triple center exit (like FL5), factory active exhaust valve",
+    "tires_note": "Common aftermarket: 265/35R18 (stock diameter) or 275/35R18 on 18x9.5-18x10; 295/30R18 on 18x10.5+ track builds; 265/30R19 or 275/30R19 on 19s. Popular tires: Michelin PS4S, Continental ECS02, Bridgestone RE-71RS (track), Yokohama A052 (track)."
+  },
+  "baseline_build": {
+    "installed": ["PRL High Volume Intake", "Wheel spacers"],
+    "notes": "Owner's current state: otherwise stock (stock downpipe, exhaust, intercooler, charge pipes, turbo inlet). Suspension goal: street use, no wheel gap."
+  },
+  "factory_colors": [
+    { "name": "Platinum White Pearl", "hex": "#E9EAE5", "years": "2024-2026", "code": "NH-883P", "premium": true },
+    { "name": "Majestic Black Pearl", "hex": "#0A0B0D", "years": "2024-2026", "code": null, "premium": true },
+    { "name": "Performance Red Pearl", "hex": "#B0161D", "years": "2024-2026", "code": "R-568P", "premium": true },
+    { "name": "Apex Blue Pearl", "hex": "#1C5CB8", "years": "2024-2025", "code": "B-621P", "premium": true },
+    { "name": "Tiger Eye Pearl", "hex": "#A5793B", "years": "2024 only", "code": "YR-651P", "premium": true, "notes": "Type S exclusive launch color, rarest ITS color" },
+    { "name": "Liquid Carbon Metallic", "hex": "#45484C", "years": "2024-2025", "code": null, "premium": true },
+    { "name": "Lunar Silver Metallic", "hex": "#B8BBBD", "years": "2024-2025", "code": "NH-830M", "premium": false },
+    { "name": "Double Apex Blue Pearl", "hex": "#163F8F", "years": "2026", "code": null, "premium": true },
+    { "name": "Solar Silver Metallic", "hex": "#C8CACB", "years": "2026", "code": null, "premium": false },
+    { "name": "Urban Gray Pearl", "hex": "#8B8F92", "years": "2026", "code": null, "premium": true }
+  ],
+  "wraps": [
+    { "name": "Satin Battleship Gray (Nardo look)", "line": "3M 2080", "finish": "satin", "hex": "#7F868B" },
+    { "name": "Gloss Grey (Nardo-style)", "line": "Avery SW900", "finish": "gloss", "hex": "#9EA4A7" },
+    { "name": "Gloss Light Blue (Miami Blue equivalent)", "line": "Avery SW900", "finish": "gloss", "hex": "#4FC1E9" },
+    { "name": "Gloss Boat Blue (G127)", "line": "3M 2080", "finish": "gloss", "hex": "#1F5FA6" },
+    { "name": "Gloss Indigo Blue (SW900-699-O)", "line": "Avery SW900", "finish": "gloss", "hex": "#22336F" },
+    { "name": "ColorFlow Roaring Thunder (midnight purple flip)", "line": "Avery SW900", "finish": "color-flip", "hex": "#46349B" },
+    { "name": "Gloss Flip Deep Space (black-blue-purple)", "line": "3M 2080", "finish": "color-flip", "hex": "#2B2E4A" },
+    { "name": "Matte Military Green (M26)", "line": "3M 2080", "finish": "matte", "hex": "#61654F" },
+    { "name": "Matte Khaki Green", "line": "Avery SW900", "finish": "matte", "hex": "#7C7A5F" },
+    { "name": "Satin Black (S12)", "line": "3M 2080", "finish": "satin", "hex": "#101112" },
+    { "name": "Satin Vampire Red (dark metallic red)", "line": "3M 2080", "finish": "satin", "hex": "#741823" },
+    { "name": "Gloss Emerald Green (SW900-771-O)", "line": "Avery SW900", "finish": "gloss", "hex": "#0E7A4E" },
+    { "name": "Satin Frozen Vanilla (cream white)", "line": "3M 2080", "finish": "satin", "hex": "#EFE9DA" }
+  ],
+  "wrap_cost_note": "Full professional wrap on a DE5: ~$2,500-6,000 with 3M 2080 / Avery SW900; most quality quotes ~$3,000-4,500. Satin/matte +$300-500; color-flip films ~$4,500-6,500+. Film alone ~$800-1,400.",
+  "wheels": [
+    { "brand": "Titan 7", "model": "T-S5", "size": "18x9.5", "offset": "+45 (also +35)", "finishes": ["Techna Bronze", "Machine Black", "Satin Titanium", "Wicked Black"], "style": "forged split 5-spoke", "price_set": "~$2,160-2,380", "url": "https://titan-7.com/products/t-s5-forged-split-5-spoke-wheel-jdm" },
+    { "brand": "Titan 7", "model": "T-R10", "size": "18x9.5", "offset": "+35/+45", "finishes": ["Machine Black", "Satin Titanium", "Techna Bronze"], "style": "forged split 10-spoke", "price_set": "~$2,200-2,400", "url": "https://prlmotorsports.com/products/titan-7-t-r10-forged-split-10-spoke-wheel" },
+    { "brand": "Rays Volk Racing", "model": "TE37 Saga S-Plus", "size": "18x9.5", "offset": "+45 (+38/+33 aggressive)", "finishes": ["Bronze Almite", "Diamond Dark Gunmetal", "Dash White", "Mag Blue", "Matte Blue Gunmetal"], "style": "iconic forged 6-spoke", "price_set": "~$4,350-4,630", "url": "https://www.systemmotorsports.com/products/volk-racing-te37-saga-s-plus-18x9-5-45-5x120-fl5-fk8-type-r-de5-type-s-fitment-set-of-4" },
+    { "brand": "Rays Volk Racing", "model": "ZE40 M-Spec", "size": "18x10", "offset": "+40 (God Spec)", "finishes": ["Bronze Almite", "Diamond Dark Gunmetal", "Gold", "Metallic Red", "Shining Black Metal"], "style": "forged 10-spoke concave", "price_set": "~$4,390-4,670", "url": "https://www.systemmotorsports.com/products/volk-racing-ze40-m-spec-18x10-40-5x120-set-of-4" },
+    { "brand": "Rays Gram Lights", "model": "57CR", "size": "18x9.5", "offset": "+38", "finishes": ["Glossy Black", "Bronze II", "Gun Blue II", "Ceramic Pearl White", "Eternal Blue Pearl", "Sakura Pink"], "style": "concave twisted 5-spoke (cast)", "price_set": "~$2,300-3,320", "url": "https://www.systemmotorsports.com/products/gram-lights-57cr-18x9-5-38-5x120-fl5-fk8-civic-type-r-de5-integra-type-s-fitment-set-of-4" },
+    { "brand": "Advan Racing", "model": "GT Beyond", "size": "18x9.5", "offset": "+45 (also +38)", "finishes": ["Racing Titanium Black", "Racing Copper Bronze", "Racing White"], "style": "forged slim 10-spoke concave", "price_set": "~$4,120-4,340", "url": "https://www.systemmotorsports.com/products/advan-gt-beyond-18x9-5-45-5x120-fl5-fk8-civic-type-r-de5-integra-type-s-set-of-4" },
+    { "brand": "Apex", "model": "VS-5RS", "size": "18x9.5", "offset": "ET45 (DE5-specific bore)", "finishes": ["Anthracite", "Satin Black", "Brushed Clear"], "style": "forged split 5-spoke, 18.2 lb", "price_set": "~$2,956", "url": "https://apexwheels.com/wheels/apex-vs5rs-18x9-5-et45-wheels-5x120mm-64-1mm" },
+    { "brand": "Apex", "model": "SM-10RS", "size": "18x9.5", "offset": "ET53 (SCCA street legal)", "finishes": ["Anthracite", "Satin Bronze", "Satin Black"], "style": "forged 10-spoke, 18.3 lb", "price_set": "~$2,876", "url": "https://apexwheels.com/wheels/apex-sm10rs-18x9-5-et53-wheels-5x120mm-64-1mm" },
+    { "brand": "Enkei", "model": "TS-5", "size": "18x9.5", "offset": "+38/+45", "finishes": ["Gloss Black", "Matte Bronze", "Storm Gray"], "style": "twin 5-spoke cast, budget favorite", "price_set": "~$1,120-1,470", "url": "https://unity-performance.com/products/enkei-ts-5-wheels-17-21-type-r-fk8-fl5-23-integra-type-s-de5" },
+    { "brand": "Konig", "model": "Hypergram", "size": "18x9.5", "offset": "+35", "finishes": ["Race Bronze", "Matte Grey", "Matte Black"], "style": "thin 12-spoke flow-formed, best value", "price_set": "~$850-1,050", "url": "https://konigwheels.com/products/konig-hypergram" },
+    { "brand": "BBS", "model": "RI-A", "size": "18x9.5", "offset": "+50 (also +40)", "finishes": ["Diamond Black", "Diamond Silver", "Matte Bronze", "Gold"], "style": "die-forged 6-spoke, 18.9 lb", "price_set": "~$4,540", "url": "https://www.systemmotorsports.com/products/bbs-ri-a-18x9-5-50-5x120-diamond-black-fl5-fk8-civic-type-r-fitment-set-of-4" }
+  ],
+  "suspension": [
+    { "brand": "Eibach", "product": "Pro-Kit Springs", "type": "springs", "drop_front_in": 1.0, "drop_rear_in": 0.8, "price": "~$395", "url": "https://www.twostepperformance.com/products/eibach-pro-kit-lowering-springs-for-2024-acura-integra-type-s-de5", "notes": "DE5-specific, works with factory adaptive dampers. Most popular mild drop." },
+    { "brand": "Eibach", "product": "Sportline Springs", "type": "springs", "drop_front_in": 1.2, "drop_rear_in": 0.9, "price": "~$395-440", "url": "https://unity-performance.com/products/eibach-sportline-lowering-springs-23-integra-type-s-de5", "notes": "Lowest Eibach; bump-stop trim + SPC rear camber kit recommended." },
+    { "brand": "Swift Springs", "product": "Spec-R (4H925R)", "type": "springs", "drop_front_in": 1.0, "drop_rear_in": 1.0, "price": "~$530", "url": "https://www.swiftsprings.com/products/acura-integra-type-s-2023-spec-r-lowering-springs", "notes": "Enthusiast favorite for ride quality on adaptive dampers." },
+    { "brand": "H&R", "product": "Sport Springs", "type": "springs", "drop_front_in": 0.75, "drop_rear_in": 0.6, "price": "~$425-500", "url": "https://unity-performance.com/products/h-r-lowering-springs-23-civic-type-r-fl5", "notes": "FL5 part, vendor lists DE5 fitment. Mildest drop." },
+    { "brand": "RS-R", "product": "Down Sus Springs", "type": "springs", "drop_front_in": null, "drop_rear_in": null, "price": "~$369", "url": "https://jhpusa.com/products/rs-r-down-sus-lowering-springs-2024-integra-type-s-de5", "notes": "DE5-specific, mild drop (~0.5-0.8 in typical), exact figures unpublished." },
+    { "brand": "Fortune Auto", "product": "Variable Height Springs", "type": "springs", "drop_front_in": 1.25, "drop_rear_in": 1.25, "price": "~$1,069", "url": "https://shop-fortune-auto.com/products/acura-integra-type-s-de5-2024-variable-height-lowering-springs", "notes": "Adjustable 0 to -1.25 in on factory adaptive dampers." },
+    { "brand": "KW", "product": "V3 Coilovers", "type": "coilovers", "drop_front_in": 1.2, "drop_rear_in": 1.2, "price": "~$1,909+", "url": "https://www.kwsuspensions.com/us-en/lp-honda-civic-type-r-coilovers", "notes": "10-30mm range. FL5 catalog with damper-cancel kit; confirm DE5 with KW." },
+    { "brand": "Ohlins", "product": "Road & Track DFV", "type": "coilovers", "drop_front_in": 0.8, "drop_rear_in": 0.8, "price": "~$3,000", "url": "https://www.hybrid-racing.com/products/ohlins-road-and-track-coilovers-fl5-fk8-honda-civic-type-r", "notes": "FK8/FL5 kit; Ohlins does not list DE5. Fitment uncertain, verify." },
+    { "brand": "Fortune Auto", "product": "500 Series Coilovers", "type": "coilovers", "drop_front_in": null, "drop_rear_in": null, "price": "~$1,978", "url": "https://shop-fortune-auto.com/products/acura-integra-type-s-de5-2024-500-series-coilovers", "notes": "DE5-specific, 24-way, includes camber plates." },
+    { "brand": "RS-R", "product": "Best-i Active Coilovers", "type": "coilovers", "drop_front_in": null, "drop_rear_in": null, "price": "~$2,999", "url": "https://www.springrates.com/products/rs-r-best-i-active-coilovers-2024-acura-integra-type-s-de5", "notes": "Unique: keeps factory adaptive damping signal, 36-level via drive modes. DE5-specific." },
+    { "brand": "ST Suspensions", "product": "XTA Plus 3 Coilovers", "type": "coilovers", "drop_front_in": 1.2, "drop_rear_in": 1.2, "price": "~$2,989", "url": "https://unity-performance.com/products/st-suspensions-xta-plus-3-coilover-kit-17-23-civic-type-r-fk8-fl5-23-integra-type-s-de5-copy", "notes": "KW-built 3-way adjustable, explicitly lists DE5. 0.4-1.2 in range." },
+    { "brand": "BC Racing", "product": "BR Series (A-166-BR)", "type": "coilovers", "drop_front_in": 3.0, "drop_rear_in": 3.0, "price": "~$1,195-1,300", "url": "https://edgeautosport.com/bc-racing-br-type-coilover-kit-honda-civic-type-r-2023-2024-fl5-a-166-br", "notes": "FL5 part, wide height range (~0-3 in). Needs EDC canceler. Verify DE5." },
+    { "brand": "Godspeed", "product": "MAXX Coilovers (MMX2106-C)", "type": "coilovers", "drop_front_in": null, "drop_rear_in": null, "price": "~$990", "url": "https://godspeedproject.com/acura-integra-type-s-de5-2024-25-maxx-coilovers-lowering-kit.html", "notes": "DE5-specific budget option, 40-level. Needs EDC bypass module." }
+  ],
+  "aero": {
+    "front_lips": [
+      { "brand": "APR Performance", "product": "Carbon Front Air Dam/Lip (FA-924001)", "material": "pre-preg carbon", "price": "$1,350", "url": "https://shop.aprperformance.com/products/acura-de5-integra-type-s-front-air-dam-lip-2024-current", "notes": "DE5-specific 3-pc; full aero kit AB-924000 (airdam+rockers+rear skirts) $3,546" },
+      { "brand": "AeroflowDynamics", "product": "DE5 Front Lip", "material": "CNC polymer", "price": "~$280", "url": "https://www.aeroflowdynamics.com/products/2024-2026-acura-integra-type-s-front-lip", "notes": "Budget bolt-on, lifetime warranty" },
+      { "brand": "EOS", "product": "DE5 Front Lip Splitter", "material": "ABS or carbon", "price": "~$100-430", "url": "https://extremeonlinestore.com/products/2024-up-acura-integra-de5-front-lip-splitter", "notes": "ABS ~$99-120, carbon ~$430" },
+      { "brand": "Artwork Bodyshop", "product": "Front Splitter", "material": "HDPE plate", "price": "~$450", "url": "https://artworkbodyshop.com/products/front-splitter-acura-integra-type-s-2024", "notes": "Track-style flat splitter, made to order" }
+    ],
+    "side_skirts": [
+      { "brand": "APR Performance", "product": "Side Rocker Extensions (FS-924008)", "material": "pre-preg carbon", "price": "$2,050", "url": "https://shop.aprperformance.com/products/acura-de5-integra-side-rocker-extensions-side-skirt-2024-current", "notes": "DE5-specific" },
+      { "brand": "AeroflowDynamics", "product": "DE5 Side Skirt Extensions", "material": "CNC polymer", "price": "~$300", "url": "https://www.aeroflowdynamics.com/products/2024-2026-acura-integra-type-s-de5-side-skirt-extensions", "notes": "Budget bolt-on pair" },
+      { "brand": "Jogon Carbon", "product": "Side Skirts", "material": "carbon", "price": "~$1,850", "url": "https://www.jogoncarbon.com/collections/acura-integra", "notes": "Verify DE5 SKU (some shared with FL5)" }
+    ],
+    "spoilers_wings": [
+      { "brand": "APR Performance", "product": "GTC-300 67in Wing (AS-106794)", "style": "GT wing", "price": "$2,600", "url": "https://shop.aprperformance.com/products/acura-de5-integra-type-s-gtc-300-adjustable-wing-67-2024-current", "notes": "DE5 mounts, drills into hatch; 61in version same price" },
+      { "brand": "APR Performance", "product": "GT-250 Wing 61/67in", "style": "GT wing", "price": "~$2,342-2,450", "url": "https://www.evasivemotorsports.com/store/product/apr-performance-carbon-fiber-gt-250-61-inch-adjustable-wing-acura-integra-type-s-de5-2024/", "notes": "Milder profile. No Voltex/Mugen DE5 wings exist as of Aug 2026." },
+      { "brand": "AeroflowDynamics", "product": "Kogeki Attack Duckbill", "style": "duckbill", "price": "~$180", "url": "https://www.aeroflowdynamics.com/products/2023-2026-acura-integra-integra-type-type-s-duckbill-spoiler", "notes": "Fits DE4/DE5" },
+      { "brand": "AeroCarbon", "product": "Carbon Duckbill Spoiler", "style": "duckbill", "price": "~$580", "url": "https://www.aerowerksports.com/product/aerocarbon-acura-integra-type-s-de5-carbon-fiber-duckbill-spoiler", "notes": "DE5-specific, twill or forged carbon" },
+      { "brand": "Epsilon+", "product": "Sport Wing (DC2R-inspired)", "style": "retro riser wing", "price": "$500", "url": "https://epsilon.plus/products/epsilon-wing-acura-integra-de-2023", "notes": "Throwback ITR look" },
+      { "brand": "Acura Genuine", "product": "Carbon Tailgate Spoiler (08F02-3S5-200)", "style": "factory carbon decklid", "price": "$969", "url": "https://acura.oempartsonline.com/oem-parts/acura-tailgate-spoiler-carbon-fiber-8f023s5200", "notes": "OEM accessory" }
+    ],
+    "diffusers": [
+      { "brand": "Seibon", "product": "MB-Style Carbon Rear Diffuser", "material": "carbon", "price": "$855", "url": "https://jhpusa.com/products/seibon-mb-style-carbon-fiber-rear-diffuser-24-integra-type-s-de5", "notes": "One of the only true carbon diffusers for DE5" },
+      { "brand": "APR Performance", "product": "Rear Skirts/Spats (FS-924028)", "material": "carbon", "price": "$540", "url": "https://shop.aprperformance.com/products/acura-de5-integra-type-s-aerodynamic-kit-2024-current", "notes": "Corner spats, not full replacement" },
+      { "brand": "Artwork Bodyshop", "product": "Rear Diffuser", "material": "HDPE, 4 fins", "price": "~$450", "url": "https://artworkbodyshop.com/products/rear-diffuser-acura-integra-type-s-2024", "notes": "~8 wk lead" }
+    ],
+    "carbon_exterior": [
+      { "brand": "Seibon", "product": "OEM-Style Carbon Hood (HD24ACINS-OE)", "piece": "hood", "price": "$1,600", "url": "https://seiboncarbon.com/oem-style-carbon-fiber-hood-for-2024-2026-acura-integra-type-s.html", "notes": "Retains vent; needs hood pins. Double-sided version ~$2,000" },
+      { "brand": "Seibon", "product": "Carbon Hood Vent (HDS24ACINS)", "piece": "hood vent", "price": "~$537-700", "url": "https://goturbo.net/seihds24acins-seibon-2024-acura-integra-carbon-fiber-hood-scoop-hds24acins", "notes": "Direct replacement for ITS vent" },
+      { "brand": "AeroCarbon", "product": "DE5 Hood Scoop", "piece": "hood vent", "price": "~$450-500", "url": "https://www.aerowerksports.com/product/aerocarbon-integra-type-s-de5-hood-scoop", "notes": "Twill or forged" },
+      { "brand": "APR Performance", "product": "GT2 AeroMirror", "piece": "mirrors", "price": "$1,300", "url": "https://shop.aprperformance.com/products/apr-performance-gt2-aeromirror-acura-integra-type-s-de5-fitment", "notes": "Race mirrors; lose power fold/signals" },
+      { "brand": "Acura Genuine", "product": "Carbon Mirror Covers (08R06-3S5-200)", "piece": "mirror caps", "price": "~$560-600", "url": "https://prlmotorsports.com/products/genuine-acura-2023-integra-carbon-fiber-door-mirror-covers", "notes": "OEM accessory overlay caps" },
+      { "brand": "The Carbon Industries", "product": "Mirror Cap Covers", "piece": "mirror caps", "price": null, "url": "https://www.thecarbonindustries.com/products/carbon-fiber-side-mirror-cap-cover-acura-integra-a-spec-type-s-de4-de5-2022-2024", "notes": "Overlay, DE4/DE5" },
+      { "brand": "Jogon Carbon", "product": "Roof spoiler / B-pillar 6pc / engine cover", "piece": "misc", "price": "~$228-265 each", "url": "https://www.jogoncarbon.com/collections/acura-integra", "notes": "Some shared DE5/FL5 tooling" }
+    ]
+  },
+  "exhausts": [
+    { "brand": "Borla", "product": "ATAK Cat-Back (140986)", "config": "triple center, valved", "price": "$2,678-2,996", "url": "https://www.borla.com/products/acura-integra-type-s-cat-back-exhaust-system-140986", "notes": "Retains factory active valve; carbon tip option top price" },
+    { "brand": "AWE", "product": "Track Edition", "config": "triple center, 4.5in tips", "price": "$1,385", "url": "https://www.awe-tuning.com/products/awe-exhaust-suite-for-de5-acura-integra-type-s", "notes": "Louder, no drone tech" },
+    { "brand": "AWE", "product": "Touring Edition", "config": "triple center, 180 Technology", "price": "$1,895", "url": "https://www.awe-tuning.com/products/awe-exhaust-suite-for-de5-acura-integra-type-s", "notes": "Drone-cancelling, best value quiet option" },
+    { "brand": "Remark", "product": "Sports Touring Catback", "config": "triple center, 4.5in tips", "price": "~$1,895-1,995", "url": "https://www.remark-usa.com/products/sports-touring-catback-exhaust-acura-integra-type-s-de5-2023", "notes": "Deletes factory valve (no CEL)" },
+    { "brand": "Invidia", "product": "Q300", "config": "triple center, burnt ti tips", "price": "~$2,675", "url": "https://vprmotorsports.com/shop/ols/products/invidia-q300-cat-back-exhaust-system-2024-acura-integra-type-s-de5", "notes": "DE5 confirmed" },
+    { "brand": "MBRP", "product": "Armor Pro 3in (S49043BE)", "config": "triple center, burnt 4.5in tips", "price": "~$2,245-2,773", "url": "https://www.mbrp.com/products/s49043be", "notes": "T304, lifetime warranty, often on sale" },
+    { "brand": "Milltek", "product": "3in Resonated Cat-Back", "config": "triple center, GT-115 or carbon tips", "price": "~$2,977-3,687", "url": "https://www.twostepperformance.com/products/milltek-resonated-catback-exhaust-for-2024-acura-integra-type-s-de5-2-0t", "notes": "Maintains OE valve" },
+    { "brand": "A'PEXi", "product": "N1-X Evolution Extreme", "config": "DUAL center (converts from triple), 123mm ti tips", "price": "$2,599", "url": "https://www.apexi-usa.com/products/apexi-n1-evo-extreme-catback-2024-acura-integra-type-s", "notes": "Distinct dual-tip look; valve motor reset needed" },
+    { "brand": "27WON", "product": "Valved Performance Exhaust", "config": "triple center, retains OEM valve", "price": "$2,200", "url": "https://store.27won.com/2024-acura-integra-type-s-de5-valved-exhaust-system-en.html", "notes": "80mm piping, resonated" }
+  ],
+  "interior": {
+    "carbon_trim": [
+      { "brand": "Jogon Carbon", "product": "Dry carbon interior line", "piece": "console/shift panel, dash covers, B-pillar 6pc ($228), window triangles ($58)", "price": "~$60-250/pc", "url": "https://www.jogoncarbon.com/collections/acura-integra", "notes": "Few vendors making DE5-specific dry carbon interior" },
+      { "brand": "Yipmotiv", "product": "Dry carbon dash trim", "piece": "instrument dash overlay, USB-C cover, rear cupholder", "price": "~$50-120/pc", "url": "https://www.amazon.com/Yipmotiv-Genuine-Dashboard-Technology-Instrument/dp/B0D2NLWDL8", "notes": "DE4/DE5, gloss or matte weave" },
+      { "brand": "Carismo Design", "product": "Carismo Trim", "piece": "interior/wheel trim", "price": "from ~$165", "url": "https://carismodesign.com/collections/acura-integra-de4-de5", "notes": "Dedicated DE4/DE5 collection" }
+    ],
+    "seats": [
+      { "brand": "Honda OEM", "product": "FL5 Civic Type R red buckets", "price": "~$2,500-3,500/pair new", "url": "https://www.integraforums.com/forum/threads/the-seats.52261/page-3", "notes": "Most popular DE5 seat mod, essentially bolt-in" },
+      { "brand": "Recaro", "product": "Sportster CS/GT", "price": "~$1,900-2,400 each + rails", "url": "https://www.recaro-automotive.com/us", "notes": "Wedge Engineering brackets ~$200-250/side" },
+      { "brand": "Recaro", "product": "Podium CF", "price": "~$9,990 each", "url": "https://flat6motorsports.com/products/recaro-podium-carbon", "notes": "Carbon-shell halo option" },
+      { "brand": "Bride", "product": "Zeta IV / Xero VS", "price": "~$1,500-2,200 each + slider", "url": "https://aj-racing.com/en-us/products/bride-ro-seat-slider-honda-civic-type-r-fl5-integra-type-s-de5", "notes": "Bride RO slider explicitly lists DE5 ($230)" },
+      { "brand": "Sparco", "product": "QRT Performance / QRT-R", "price": "~$999-1,300 each + mounts", "url": "https://www.sparcousa.com", "notes": "Budget bucket, FL5 base fits" }
+    ],
+    "steering_wheels": [
+      { "brand": "Mugen", "product": "Sports Steering Wheel (78501-XNRC-K0S0-BK)", "price": "$849", "url": "https://www.kingmotorsports.com/p-6018-mugen-fl1-fl5-de5-sports-steering-wheel.aspx", "notes": "Explicit DE5 fitment, dry carbon + Alcantara, reuses OEM airbag" },
+      { "brand": "Carismo Design", "product": "Signature/Sport/Classic carbon wheels", "price": "$595-895", "url": "https://carismodesign.com/collections/acura-integra-de4-de5", "notes": "DE4/DE5 fitment, LED shift-light option" },
+      { "brand": "Synth Carbon", "product": "Carbon steering wheel", "price": "~$550-750", "url": "https://www.synthcarbon.com/products/2022-civic-integra-carbon-fiber-steering-wheel", "notes": "FL5/DE5 core exchange" },
+      { "brand": "Jogon Carbon", "product": "Carbon wheel replacement", "price": "$385", "url": "https://www.jogoncarbon.com/collections/acura-integra", "notes": "Budget option" }
+    ],
+    "shift_knobs": [
+      { "brand": "Acura OEM", "product": "ITS leather knob (54102-31M-A00ZD)", "price": "~$65", "url": "https://www.hybrid-racing.com/products/acura-integra-type-s-leather-wrapped-shift-knob-54102-31m-a00zd", "notes": "M10x1.5, all 11th-gen Civic knobs interchange" },
+      { "brand": "Hybrid Racing", "product": "Maxim Performance Knob", "price": "~$105", "url": "https://www.hybrid-racing.com/products/hybrid-racing-maxim-performance-shift-knob", "notes": "Most popular aftermarket knob on platform; line runs $60-300" },
+      { "brand": "ACUITY", "product": "ESCO-T6 / POCO", "price": "~$60-90", "url": "https://www.acuityinstruments.com", "notes": "OEM+ favorite; pairs with Acuity shifter bushings" },
+      { "brand": "Jogon Carbon", "product": "Dry carbon knob", "price": "~$58-108", "url": "https://www.jogoncarbon.com/collections/acura-integra", "notes": "Matches carbon console pieces" }
+    ],
+    "other": [
+      { "brand": "Acura OEM", "product": "Illuminated door sills (08E12-3S5-200A)", "price": "~$400-500", "url": "https://www.integraforums.com/forum/threads/2024-integra-type-s-accessories-lineup-guide.51059/page-2", "notes": "Lighted INTEGRA sills, plug-and-play" },
+      { "brand": "Acura OEM", "product": "Type S all-season mats (08P17-3S5-210B)", "price": "~$170", "url": "https://www.acura.com/accessories", "notes": "Cargo tray ~$120 also available" }
+    ]
+  },
+  "model_sources_3d": [
+    { "source": "CGTrader", "item": "Acura Integra Type S 2024 3D model", "url": "https://www.cgtrader.com/3d-models/car/car/acura-integra-type-s-2024", "notes": "Paid, typically $50-150; check format includes FBX/OBJ/BLEND for GLB conversion" },
+    { "source": "3DModels.org", "item": "Acura Integra Type S 2025", "url": "https://3dmodels.org/3d-models/acura-integra-type-s-2024/", "notes": "Paid, multiple formats" },
+    { "source": "TurboSquid", "item": "Acura Integra search", "url": "https://www.turbosquid.com/3d-model/acura-integra", "notes": "Mixed free/paid; verify it is the DE5 Type S wide-body, not base DE4" },
+    { "source": "Sketchfab", "item": "Integra tag", "url": "https://sketchfab.com/tags/integra", "notes": "Possible free CC-licensed models; check license allows use and quality of the DE5 specifically" }
+  ]
+}

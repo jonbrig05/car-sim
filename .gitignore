@@ -1,0 +1,8 @@
+node_modules/
+dist/
+/SESSIONS.md
+
+# large model binaries: keep the repo clonable, document the download in PLAN.md
+assets/models/*.glb
+assets/models/*.blend
+assets/models/*.fbx
