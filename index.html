@@ -211,8 +211,28 @@
       .credits { font-size: 10.5px; color: var(--muted); line-height: 1.5; }
       .credits a { color: var(--muted); }
 
+      /* Phones: panel becomes a bottom sheet under the 3D view instead of a
+         side column (a 300px column on a 390px screen left a sliver of car). */
       @media (max-width: 760px) {
-        :root { --panel-w: 300px; }
+        #app { right: 0; bottom: 44vh; }
+        #panel {
+          top: auto;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: auto;
+          height: 44vh;
+          border-left: none;
+          border-top: 1px solid var(--line);
+          padding: 12px 14px 20px;
+        }
+        #presets {
+          left: 12px;
+          right: 12px;
+          bottom: calc(44vh + 12px);
+          flex-wrap: wrap;
+        }
+        #hud { top: 12px; left: 12px; }
       }
     </style>
   </head>
