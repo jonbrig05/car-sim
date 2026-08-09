@@ -3,6 +3,7 @@ import { loadCar } from './viewer/loadCar.js';
 import { createFactoryPaint, createWrapMaterial, applyPaint } from './materials/paint.js';
 import { applyStance } from './mods/stance.js';
 import { initPanel, buildItems } from './ui/panel.js';
+import { encodeBuildHash, decodeBuildHash } from './util/share.js';
 import db from '../data/parts-database.json';
 
 const container = document.getElementById('app');
@@ -18,6 +19,9 @@ const build = {
   wheels: null,
   exhaust: null,
 };
+// A shared link restores its build over the defaults.
+Object.assign(build, decodeBuildHash(location.hash, db));
+const DEFAULT_HASH = encodeBuildHash({ paint: { type: 'factory', item: db.factory_colors[0] } });
 
 let car = null;
 let panel = null;
@@ -46,6 +50,9 @@ function refresh() {
   repaint();
   restance();
   panel.setBuild(build);
+  // Keep the URL shareable at all times; a pure-default build gets no hash.
+  const hash = encodeBuildHash(build);
+  history.replaceState(null, '', hash === DEFAULT_HASH ? location.pathname : hash);
 }
 
 panel = initPanel(document.getElementById('panel'), {
@@ -59,6 +66,9 @@ panel = initPanel(document.getElementById('panel'), {
     openVendorPages() {
       const urls = buildItems(build).map((it) => it.url).filter(Boolean);
       for (const url of urls) window.open(url, '_blank', 'noopener');
+    },
+    copyBuildLink() {
+      return navigator.clipboard.writeText(location.href);
     },
   },
 });

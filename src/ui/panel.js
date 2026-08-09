@@ -148,6 +148,15 @@ export function initPanel(root, { db, actions }) {
   buildSec.appendChild(refs.buildSheet);
   refs.total = el('div', 'build-total');
   buildSec.appendChild(refs.total);
+  const copyLink = el('button', 'open-all copy-link', 'Copy build link');
+  copyLink.addEventListener('click', () => {
+    actions.copyBuildLink().then(
+      () => { copyLink.textContent = 'Link copied'; },
+      () => { copyLink.textContent = 'Copy failed, grab the URL bar'; },
+    );
+    setTimeout(() => { copyLink.textContent = 'Copy build link'; }, 1800);
+  });
+  buildSec.appendChild(copyLink);
   const openAll = el('button', 'open-all', 'Open vendor pages for checkout');
   openAll.addEventListener('click', () => actions.openVendorPages());
   buildSec.appendChild(openAll);
