@@ -77,6 +77,7 @@ export function adaptFL5(scene) {
 
   splitWheels(car, wheelSource);
   splitLamps(car, lampSource);
+  polishMaterials(car);
 
   car.traverse((node) => {
     if (node.isMesh) {
@@ -85,6 +86,38 @@ export function adaptFL5(scene) {
     }
   });
   return car;
+}
+
+// Source-material fixes. The GLB's Discbrake material is near-white and blows
+// out under the studio env (rotors read as white discs in wheel close-ups),
+// and the Windshield material is fully opaque. Split pieces share material
+// instances, so mutating each material once covers every corner.
+function polishMaterials(car) {
+  const seen = new Set();
+  const steel = new THREE.MeshStandardMaterial({
+    name: 'Discbrake_steel',
+    color: 0x4e5054,
+    metalness: 0.85,
+    roughness: 0.45,
+  });
+  car.traverse((node) => {
+    if (!node.isMesh || !node.material) return;
+    const name = node.material.name ?? '';
+    if (name.startsWith('Discbrake')) {
+      node.material = steel;
+    } else if (name.startsWith('Windshield') && !seen.has(node.material)) {
+      seen.add(node.material);
+      const glass = node.material;
+      if (glass.map) glass.map = null;
+      glass.color = new THREE.Color(0x1c2422); // deep green-gray automotive tint
+      glass.transparent = true;
+      glass.opacity = 0.55;
+      glass.metalness = 0;
+      glass.roughness = 0.05;
+      glass.depthWrite = false; // let the baked interior show through
+      glass.needsUpdate = true;
+    }
+  });
 }
 
 function uniqueName(car, base) {
