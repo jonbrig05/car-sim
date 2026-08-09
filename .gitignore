@@ -1,6 +1,7 @@
 node_modules/
 dist/
 /SESSIONS.md
+/screenshots/
 
 # Working files stay local; the shipped GLB is committed (CC-BY, credited in-app and in README)
 assets/models/*.blend
