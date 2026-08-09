@@ -5,15 +5,16 @@ import { adaptFL5 } from './adapters/fl5.js';
 import { adaptDE5Approx } from './adapters/de5Approx.js';
 
 // Chassis registry: DE5 is the flagship, FL5 is a real supported chassis
-// (planned UI toggle). Files live in assets/models/, served from /models/.
+// (planned UI toggle). Files live in assets/models/, served from models/
+// (relative URLs: the site deploys under a subpath on GitHub Pages).
 // `adapt` reshapes a raw downloaded model into the mesh naming convention
 // (renames, per-corner wheel groups, normalized scale/origin). Until a true
 // DE5 model exists, the default is the FL5 progressively converted toward
 // DE5 in code ($0 strategy); the label is honest about the approximation.
 const CHASSIS = [
-  { id: 'de5', label: 'Integra Type S (DE5)', url: '/models/de5.glb' },
-  { id: 'de5a', label: 'Integra Type S (DE5, approximation)', url: '/models/fl5.glb', adapt: adaptDE5Approx },
-  { id: 'fl5', label: 'Civic Type R (FL5)', url: '/models/fl5.glb', adapt: adaptFL5 },
+  { id: 'de5', label: 'Integra Type S (DE5)', url: 'models/de5.glb' },
+  { id: 'de5a', label: 'Integra Type S (DE5, approximation)', url: 'models/fl5.glb', adapt: adaptDE5Approx },
+  { id: 'fl5', label: 'Civic Type R (FL5)', url: 'models/fl5.glb', adapt: adaptFL5 },
 ];
 
 // Loads the first chassis model that exists, preferring the DE5, otherwise

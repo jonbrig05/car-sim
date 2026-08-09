@@ -2,7 +2,6 @@ node_modules/
 dist/
 /SESSIONS.md
 
-# large model binaries: keep the repo clonable, document the download in PLAN.md
-assets/models/*.glb
+# Working files stay local; the shipped GLB is committed (CC-BY, credited in-app and in README)
 assets/models/*.blend
 assets/models/*.fbx
