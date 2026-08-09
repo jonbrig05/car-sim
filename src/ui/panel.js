@@ -27,14 +27,33 @@ function needsFitmentFlag(notes) {
 export function initPanel(root, { db, actions }) {
   root.innerHTML = '';
 
-  const refs = { swatches: new Map(), rows: new Map(), buildSheet: null, total: null };
+  const refs = { swatches: new Map(), rows: new Map(), sections: new Map(), buildSheet: null, total: null };
 
-  function section(title, hint) {
-    const s = el('section', 'panel-section');
-    s.appendChild(el('h2', null, title));
-    if (hint) s.appendChild(el('p', 'hint', hint));
+  // Collapsible category card: header shows the current selection so the
+  // default panel is a short list of categories, not the whole catalog
+  // (accordion: opening one closes the others). Returns the content body.
+  function section(title, hint, { collapsible = true } = {}) {
+    const s = el('section', `panel-section${collapsible ? '' : ' open'}`);
+    const head = el(collapsible ? 'button' : 'div', 'section-head');
+    head.appendChild(el('span', 'sec-title', title));
+    let current = null;
+    if (collapsible) {
+      current = el('span', 'sec-current', '');
+      head.appendChild(current);
+      head.appendChild(el('span', 'chev', '▾'));
+      head.addEventListener('click', () => {
+        const wasOpen = s.classList.contains('open');
+        for (const o of refs.sections.values()) o.sec.classList.remove('open');
+        if (!wasOpen) s.classList.add('open');
+      });
+    }
+    s.appendChild(head);
+    const body = el('div', 'section-body');
+    if (hint) body.appendChild(el('p', 'hint', hint));
+    s.appendChild(body);
     root.appendChild(s);
-    return s;
+    if (collapsible) refs.sections.set(title, { sec: s, current });
+    return body;
   }
 
   // Paint: factory swatches with year badges, then wraps with finish badges.
@@ -142,8 +161,8 @@ export function initPanel(root, { db, actions }) {
     },
   );
 
-  // Build sheet / checkout.
-  const buildSec = section('Build sheet', null);
+  // Build sheet / checkout: always visible, it is the running summary.
+  const buildSec = section('Build sheet', null, { collapsible: false });
   refs.buildSheet = el('div', 'build-sheet');
   buildSec.appendChild(refs.buildSheet);
   refs.total = el('div', 'build-total');
@@ -168,14 +187,33 @@ export function initPanel(root, { db, actions }) {
     'FL5 3D model: <a href="https://sketchfab.com/3d-models/honda-civic-type-r-fl5-2f54931a83744e048cacc3886d6cf5da" target="_blank" rel="noopener">"Honda Civic Type R (FL5)" by Mona x Supercars (@Car2022)</a>, CC Attribution. Parts data researched Aug 2026.';
   root.appendChild(credits);
 
+  // Color starts open so the first thing a visitor sees is interactive.
+  refs.sections.get('Color')?.sec.classList.add('open');
+
   function setSelected(map, prefix, activeKey) {
     for (const [key, node] of map) {
       if (key.startsWith(prefix)) node.classList.toggle('selected', key === activeKey);
     }
   }
 
+  // Collapsed headers advertise the current pick.
+  function setCurrentLabels(build) {
+    const cur = (title, text) => {
+      const s = refs.sections.get(title);
+      if (s) s.current.textContent = text;
+    };
+    cur('Color', build.paint ? build.paint.item.name : '');
+    cur('Suspension', build.suspension
+      ? `${build.suspension.brand} ${build.suspension.product}` : 'Stock');
+    cur('Wheels', build.wheels
+      ? `${build.wheels.brand} ${build.wheels.model}` : 'Stock');
+    cur('Exhaust', build.exhaust
+      ? `${build.exhaust.brand} ${build.exhaust.product}` : 'Stock');
+  }
+
   // Re-render selection highlights + build sheet from the build state.
   function setBuild(build) {
+    setCurrentLabels(build);
     const paintKey = build.paint
       ? `${build.paint.type}:${build.paint.item.name}`
       : null;

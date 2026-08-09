@@ -69,14 +69,46 @@
         border-left: 1px solid var(--line);
         padding: 18px 16px 24px;
       }
-      .panel-section { margin-bottom: 22px; }
-      .panel-section h2 {
+      .panel-section { border-bottom: 1px solid var(--line); }
+      .section-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 0;
+        background: none;
+        border: none;
+        color: var(--panel-fg);
+        cursor: pointer;
+        text-align: left;
+      }
+      div.section-head { cursor: default; }
+      .sec-title {
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         color: var(--muted);
-        margin-bottom: 8px;
+        flex-shrink: 0;
       }
+      .sec-current {
+        flex: 1;
+        text-align: right;
+        font-size: 11px;
+        color: var(--panel-fg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .chev {
+        color: var(--muted);
+        font-size: 11px;
+        transition: transform 0.15s;
+        flex-shrink: 0;
+      }
+      .panel-section.open .chev { transform: rotate(180deg); }
+      .section-head:hover .sec-title { color: var(--panel-fg); }
+      .section-body { display: none; padding-bottom: 16px; }
+      .panel-section.open .section-body { display: block; }
       .panel-section h3 { font-size: 12px; margin: 10px 0 6px; color: var(--panel-fg); }
       .hint { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
 

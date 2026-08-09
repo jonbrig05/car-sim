@@ -65,9 +65,9 @@ Phased so every phase ends with something visible and working. Do them in order;
 - Swaps: carbon trim overlays (console/dash/B-pillar per Jogon/Yipmotiv entries), FL5 red buckets vs stock vs Recaro/Bride (material + color change on seat mesh is enough for v1), carbon steering wheel, shift knob.
 - **Done when:** you can sit in it and toggle carbon console + red buckets.
 
-## UI debt (Jon, 2026-08-08)
+## UI debt (Jon, 2026-08-08) - RESOLVED 2026-08-09
 
-The right panel is currently one indefinite scroll with every product front-loaded. Needs progressive disclosure before release: collapsed category sections that drill down (or lazy "show all" expansion per category), so the default view is a short list of categories with the current selection, not the full catalog.
+The right panel was one indefinite scroll with every product front-loaded. Now an accordion: collapsed category cards showing the current pick, one open at a time, build sheet always visible. Default view fits one viewport.
 
 ## Phase 6: Build sheet + price total
 
