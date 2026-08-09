@@ -56,3 +56,73 @@ export function splitMeshByCentroid(mesh, classify) {
   }
   return result;
 }
+
+// Groups a geometry's triangles into connected components (triangles sharing
+// a vertex position, welded by quantized coordinates so split-normal seams
+// still connect). Used to find topologically separate parts inside a fused
+// mesh, e.g. the FL5 wing floating above the hatch.
+export function findConnectedComponents(geometry) {
+  const pos = geometry.attributes.position;
+  const index = geometry.index;
+  const triCount = (index ? index.count : pos.count) / 3;
+  const triVert = (t, c) => (index ? index.getX(t * 3 + c) : t * 3 + c);
+  const keyOf = (vi) =>
+    `${Math.round(pos.getX(vi) * 1e4)},${Math.round(pos.getY(vi) * 1e4)},${Math.round(pos.getZ(vi) * 1e4)}`;
+
+  const parent = new Map();
+  function find(k) {
+    let root = k;
+    while (parent.get(root) !== root) root = parent.get(root);
+    let cur = k;
+    while (parent.get(cur) !== cur) {
+      const next = parent.get(cur);
+      parent.set(cur, root);
+      cur = next;
+    }
+    return root;
+  }
+  function union(a, b) {
+    if (!parent.has(a)) parent.set(a, a);
+    if (!parent.has(b)) parent.set(b, b);
+    const ra = find(a);
+    const rb = find(b);
+    if (ra !== rb) parent.set(ra, rb);
+  }
+
+  for (let t = 0; t < triCount; t += 1) {
+    const k0 = keyOf(triVert(t, 0));
+    union(k0, keyOf(triVert(t, 1)));
+    union(k0, keyOf(triVert(t, 2)));
+  }
+
+  const comps = new Map();
+  const v = new THREE.Vector3();
+  for (let t = 0; t < triCount; t += 1) {
+    const root = find(keyOf(triVert(t, 0)));
+    let comp = comps.get(root);
+    if (!comp) {
+      comp = { triangles: [], box: new THREE.Box3() };
+      comps.set(root, comp);
+    }
+    comp.triangles.push(t);
+    for (let c = 0; c < 3; c += 1) {
+      const vi = triVert(t, c);
+      v.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
+      comp.box.expandByPoint(v);
+    }
+  }
+  return [...comps.values()];
+}
+
+// Drops the given triangle indices from a geometry in place by rebuilding
+// its index (works for indexed and non-indexed input).
+export function removeTriangles(geometry, dropSet) {
+  const index = geometry.index;
+  const triCount = (index ? index.count : geometry.attributes.position.count) / 3;
+  const kept = [];
+  for (let t = 0; t < triCount; t += 1) {
+    if (dropSet.has(t)) continue;
+    for (let c = 0; c < 3; c += 1) kept.push(index ? index.getX(t * 3 + c) : t * 3 + c);
+  }
+  geometry.setIndex(kept);
+}
