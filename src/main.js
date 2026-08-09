@@ -2,6 +2,7 @@ import { createViewer, CAMERA_PRESETS } from './viewer/scene.js';
 import { loadCar } from './viewer/loadCar.js';
 import { createFactoryPaint, createWrapMaterial, applyPaint } from './materials/paint.js';
 import { applyStance } from './mods/stance.js';
+import { applyWheels } from './mods/wheels.js';
 import { initPanel, buildItems } from './ui/panel.js';
 import { encodeBuildHash, decodeBuildHash } from './util/share.js';
 import db from '../data/parts-database.json';
@@ -46,9 +47,15 @@ function restance() {
   });
 }
 
+function rewheel() {
+  if (!car) return;
+  applyWheels(car, build.wheels);
+}
+
 function refresh() {
   repaint();
   restance();
+  rewheel();
   panel.setBuild(build);
   // Keep the URL shareable at all times; a pure-default build gets no hash.
   const hash = encodeBuildHash(build);

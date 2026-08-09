@@ -117,7 +117,7 @@ export function initPanel(root, { db, actions }) {
   );
 
   pickerSection(
-    'Wheels', '3D swap coming later; picks add to the build sheet now.',
+    'Wheels', 'Rendered on the car in the first listed finish.',
     db.wheels,
     {
       key: 'wheel',
