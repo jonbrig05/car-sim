@@ -14,19 +14,25 @@ const viewer = createViewer(container);
 viewer.start();
 
 // Build state. paint is {type: 'factory'|'wrap', item}; null part = stock.
+// FL5 Civic is the presented default chassis: it is the model we actually
+// have. 'de5a' opts into the DE5-from-FL5 approximation (on hold).
+// Chassis resolves first because the factory palette depends on it
+// (de5a shows the Integra colors; untagged DB entries count as de5).
+const decoded = decodeBuildHash(location.hash, db);
+const chassis = CHASSIS_IDS.includes(decoded.chassis) ? decoded.chassis : 'fl5';
+const palette = chassis === 'fl5' ? 'fl5' : 'de5';
+const paletteColors = db.factory_colors.filter((c) => (c.chassis ?? 'de5') === palette);
 const build = {
-  // FL5 Civic is the presented default: it is the model we actually have.
-  // 'de5a' opts into the DE5-from-FL5 approximation (on hold, experimental).
-  chassis: 'fl5',
-  paint: { type: 'factory', item: db.factory_colors[0] }, // Platinum White Pearl
+  chassis,
+  paint: { type: 'factory', item: paletteColors[0] }, // Championship White / PWP
   suspension: null,
   wheels: null,
   exhaust: null,
 };
-// A shared link restores its build over the defaults.
-Object.assign(build, decodeBuildHash(location.hash, db));
-if (!CHASSIS_IDS.includes(build.chassis)) build.chassis = 'fl5';
-const DEFAULT_HASH = encodeBuildHash({ paint: { type: 'factory', item: db.factory_colors[0] } });
+// A shared link restores its build over the chassis-appropriate defaults.
+Object.assign(build, decoded);
+build.chassis = chassis;
+const DEFAULT_HASH = encodeBuildHash({ paint: { type: 'factory', item: paletteColors[0] } });
 
 let car = null;
 let panel = null;
@@ -68,6 +74,7 @@ function refresh() {
 
 panel = initPanel(document.getElementById('panel'), {
   db,
+  chassis: build.chassis,
   actions: {
     selectFactory(color) { build.paint = { type: 'factory', item: color }; refresh(); },
     selectWrap(wrap) { build.paint = { type: 'wrap', item: wrap }; refresh(); },

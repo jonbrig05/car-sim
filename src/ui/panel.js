@@ -24,7 +24,7 @@ function needsFitmentFlag(notes) {
   return notes ? /FL5|FK8|verify|confirm|fitment uncertain/i.test(notes) : false;
 }
 
-export function initPanel(root, { db, actions }) {
+export function initPanel(root, { db, actions, chassis }) {
   root.innerHTML = '';
 
   const refs = { swatches: new Map(), rows: new Map(), sections: new Map(), buildSheet: null, total: null };
@@ -57,14 +57,18 @@ export function initPanel(root, { db, actions }) {
   }
 
   // Paint: factory swatches with year badges, then wraps with finish badges.
+  // The factory palette follows the chassis (untagged DB entries are de5).
+  // Year badges flag colors Jon's 2024 DE5 can't wear; the FL5 palette has
+  // no reference car, so it gets no badges.
+  const paletteKey = chassis === 'fl5' ? 'fl5' : 'de5';
   const paintSec = section('Color', 'Factory colors are $0. Wraps show installed estimates.');
   const factoryRow = el('div', 'swatch-row');
-  for (const color of db.factory_colors) {
+  for (const color of db.factory_colors.filter((c) => (c.chassis ?? 'de5') === paletteKey)) {
     const sw = el('button', 'swatch');
     sw.style.background = color.hex;
     const is2024 = color.years.includes('2024');
     sw.title = `${color.name} (${color.years})`;
-    if (!is2024) sw.appendChild(el('span', 'swatch-badge', color.years));
+    if (paletteKey === 'de5' && !is2024) sw.appendChild(el('span', 'swatch-badge', color.years));
     sw.addEventListener('click', () => actions.selectFactory(color));
     refs.swatches.set(`factory:${color.name}`, sw);
     factoryRow.appendChild(sw);

@@ -26,16 +26,21 @@
     "notes": "Owner's current state: otherwise stock (stock downpipe, exhaust, intercooler, charge pipes, turbo inlet). Suspension goal: street use, no wheel gap."
   },
   "factory_colors": [
-    { "name": "Platinum White Pearl", "hex": "#E9EAE5", "years": "2024-2026", "code": "NH-883P", "premium": true },
-    { "name": "Majestic Black Pearl", "hex": "#0A0B0D", "years": "2024-2026", "code": null, "premium": true },
-    { "name": "Performance Red Pearl", "hex": "#B0161D", "years": "2024-2026", "code": "R-568P", "premium": true },
-    { "name": "Apex Blue Pearl", "hex": "#1C5CB8", "years": "2024-2025", "code": "B-621P", "premium": true },
-    { "name": "Tiger Eye Pearl", "hex": "#A5793B", "years": "2024 only", "code": "YR-651P", "premium": true, "notes": "Type S exclusive launch color, rarest ITS color" },
-    { "name": "Liquid Carbon Metallic", "hex": "#45484C", "years": "2024-2025", "code": null, "premium": true },
-    { "name": "Lunar Silver Metallic", "hex": "#B8BBBD", "years": "2024-2025", "code": "NH-830M", "premium": false },
-    { "name": "Double Apex Blue Pearl", "hex": "#163F8F", "years": "2026", "code": null, "premium": true },
-    { "name": "Solar Silver Metallic", "hex": "#C8CACB", "years": "2026", "code": null, "premium": false },
-    { "name": "Urban Gray Pearl", "hex": "#8B8F92", "years": "2026", "code": null, "premium": true }
+    { "name": "Platinum White Pearl", "hex": "#E9EAE5", "years": "2024-2026", "code": "NH-883P", "premium": true, "chassis": "de5" },
+    { "name": "Majestic Black Pearl", "hex": "#0A0B0D", "years": "2024-2026", "code": null, "premium": true, "chassis": "de5" },
+    { "name": "Performance Red Pearl", "hex": "#B0161D", "years": "2024-2026", "code": "R-568P", "premium": true, "chassis": "de5" },
+    { "name": "Apex Blue Pearl", "hex": "#1C5CB8", "years": "2024-2025", "code": "B-621P", "premium": true, "chassis": "de5" },
+    { "name": "Tiger Eye Pearl", "hex": "#A5793B", "years": "2024 only", "code": "YR-651P", "premium": true, "chassis": "de5", "notes": "Type S exclusive launch color, rarest ITS color" },
+    { "name": "Liquid Carbon Metallic", "hex": "#45484C", "years": "2024-2025", "code": null, "premium": true, "chassis": "de5" },
+    { "name": "Lunar Silver Metallic", "hex": "#B8BBBD", "years": "2024-2025", "code": "NH-830M", "premium": false, "chassis": "de5" },
+    { "name": "Double Apex Blue Pearl", "hex": "#163F8F", "years": "2026", "code": null, "premium": true, "chassis": "de5" },
+    { "name": "Solar Silver Metallic", "hex": "#C8CACB", "years": "2026", "code": null, "premium": false, "chassis": "de5" },
+    { "name": "Urban Gray Pearl", "hex": "#8B8F92", "years": "2026", "code": null, "premium": true, "chassis": "de5" },
+    { "name": "Championship White", "hex": "#F4F3ED", "years": "2023-2025", "code": "NH-0", "premium": true, "chassis": "fl5", "notes": "Type R heritage color. 2026 palette unverified." },
+    { "name": "Boost Blue Pearl", "hex": "#2E7FC4", "years": "2023-2025", "code": "B-593P", "premium": true, "chassis": "fl5" },
+    { "name": "Rallye Red", "hex": "#DA291C", "years": "2023-2025", "code": "R-513", "premium": false, "chassis": "fl5" },
+    { "name": "Crystal Black Pearl", "hex": "#0B0B0D", "years": "2023-2025", "code": "NH-731P", "premium": true, "chassis": "fl5" },
+    { "name": "Sonic Gray Pearl", "hex": "#7C8285", "years": "2023-2025", "code": "NH-877P", "premium": true, "chassis": "fl5" }
   ],
   "wraps": [
     { "name": "Satin Battleship Gray (Nardo look)", "line": "3M 2080", "finish": "satin", "hex": "#7F868B" },

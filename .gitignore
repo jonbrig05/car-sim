@@ -6,3 +6,4 @@ dist/
 # Working files stay local; the shipped GLB is committed (CC-BY, credited in-app and in README)
 assets/models/*.blend
 assets/models/*.fbx
+/drafts/
