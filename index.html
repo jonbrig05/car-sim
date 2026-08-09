@@ -78,10 +78,13 @@
         bottom: 0;
         width: var(--panel-w);
         overflow-y: auto;
+        overscroll-behavior: contain;
         background: var(--panel-bg);
         border-left: 1px solid var(--line);
         padding: 18px 16px 24px;
       }
+      /* Kill double-tap-zoom on controls so rapid taps don't zoom the page */
+      button, .swatch { touch-action: manipulation; }
       .panel-section { border-bottom: 1px solid var(--line); }
       .section-head {
         display: flex;
@@ -225,9 +228,12 @@
       .credits a { color: var(--muted); }
 
       /* Phones: panel becomes a bottom sheet under the 3D view instead of a
-         side column (a 300px column on a 390px screen left a sliver of car). */
+         side column (a 300px column on a 390px screen left a sliver of car).
+         dvh (vh fallback) tracks the visible viewport as the mobile URL bar
+         shows/hides; plain vh is the large viewport, which misplaces the
+         sheet/preset row whenever browser chrome is on screen. */
       @media (max-width: 760px) {
-        #app { right: 0; bottom: 44vh; }
+        #app { right: 0; bottom: 44vh; bottom: 44dvh; }
         #panel {
           top: auto;
           left: 0;
@@ -235,6 +241,7 @@
           bottom: 0;
           width: auto;
           height: 44vh;
+          height: 44dvh;
           border-left: none;
           border-top: 1px solid var(--line);
           padding: 12px 14px 20px;
@@ -243,6 +250,7 @@
           left: 12px;
           right: 12px;
           bottom: calc(44vh + 12px);
+          bottom: calc(44dvh + 12px);
           flex-wrap: wrap;
         }
         #hud { top: 12px; left: 12px; }
