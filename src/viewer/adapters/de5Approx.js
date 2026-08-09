@@ -13,7 +13,63 @@ export function adaptDE5Approx(scene) {
   removeBadges(car);
   reshapeGrille(car);
   reshapeRear(car);
+  reshapeHood(car);
   return car;
+}
+
+// FL5 hood scoop -> DE5 vent. The Civic scoop is an opening in the paint
+// shell (measured: z 1.82-1.95, |x| < 0.33) with black trim visible below.
+// A body-color cover bridges the opening, then a wide shallow black slot on
+// top reads as the DE5's flatter extractor vent (~54 cm wide, forward on the
+// hood). Outlines are plan view: x right, outline y is world z (nose +z).
+const HOOD_COVER = [
+  { x: -0.40, y: 2.00 },
+  { x: 0.40, y: 2.00 },
+  { x: 0.42, y: 1.88 },
+  { x: 0.40, y: 1.78 },
+  { x: -0.40, y: 1.78 },
+  { x: -0.42, y: 1.88 },
+];
+const HOOD_VENT = [
+  { x: -0.25, y: 1.975 },
+  { x: 0.25, y: 1.975 },
+  { x: 0.27, y: 1.925 },
+  { x: 0.25, y: 1.875 },
+  { x: -0.25, y: 1.875 },
+  { x: -0.27, y: 1.925 },
+];
+
+function reshapeHood(car) {
+  const paint = car.getObjectByName('body_paint');
+  if (!paint) return;
+  // Hood surface fit from measurements: y 0.873 at z 1.76 falling 0.133/m
+  // toward the nose, with ~6 mm crown falloff by x 0.42. Rays over the scoop
+  // opening miss body_paint entirely (the trim below is not a target), so
+  // this plane is what bridges the hole.
+  const hoodY = (x, z) => 0.873 - 0.133 * (z - 1.76) - 0.034 * x * x;
+  // Accept only hits near the expected shell: the hood inner structure shows
+  // through the scoop opening as body_paint a few cm down and would otherwise
+  // pull the panels into the bowl.
+  const nearShell = (x, z) => [hoodY(x, z) - 0.008, hoodY(x, z) + 0.02];
+  buildFrontSurfacePanel(car, HOOD_COVER, {
+    facing: 'up', offset: 0.005,
+    zBand: nearShell, zFallback: hoodY,
+    name: 'body_paint_hood_cover',
+    material: new THREE.MeshPhysicalMaterial({
+      color: 0xeceef0, clearcoat: 1.0, roughness: 0.35, metalness: 0.6,
+    }), // replaced by applyPaint via the body_paint_ prefix
+    targets: [paint],
+  });
+  buildFrontSurfacePanel(car, HOOD_VENT, {
+    facing: 'up', offset: 0.010,
+    zBand: nearShell, zFallback: hoodY,
+    // Not hood_*: 'hood' is a painted prefix and would repaint the inset.
+    name: 'de5_hood_vent',
+    material: new THREE.MeshStandardMaterial({
+      color: 0x0b0b0d, roughness: 0.85, side: THREE.DoubleSide,
+    }),
+    targets: [paint],
+  });
 }
 
 // DE5 rear approximation: an emissive lightbar projected onto the hatch

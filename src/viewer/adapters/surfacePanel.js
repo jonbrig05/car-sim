@@ -12,8 +12,13 @@ import * as THREE from 'three';
 // opening in the shell: the profile follows the bumper's plan-view curve,
 // cannot fall through the hole, and clears any lip that juts forward
 // anywhere in the band.
-// facing: 'front' (+z, default) or 'rear' (-z). Rear panels raycast from
-// behind the car, stand off in -z, and flip winding so faces point -z.
+// facing: 'front' (+z, default), 'rear' (-z), or 'up' (+y, hood/roof panels).
+// Rear panels raycast from behind the car, stand off in -z, and flip winding
+// so faces point -z. Up panels take the outline as plan view (outline y is
+// world z), raycast straight down, and stand off in +y; zBand/zFallback then
+// constrain surface HEIGHT. zFallback may be a function (x, p) -> depth for
+// surfaces that must bridge an opening with a fitted plane instead of a
+// constant (a flat bridge on a sloped hood reads as a step).
 export function buildFrontSurfacePanel(car, outlineIn, {
   fStart = 0,
   rings = 4,
@@ -26,7 +31,8 @@ export function buildFrontSurfacePanel(car, outlineIn, {
   sweepY = null,
   facing = 'front',
 }) {
-  const out = facing === 'rear' ? -1 : 1; // outward direction along z
+  const isUp = facing === 'up';
+  const out = facing === 'rear' ? -1 : 1; // outward direction along the depth axis
   // Ensure counterclockwise outline (positive signed area) viewed from +z.
   const outline = [...outlineIn];
   const area = outline.reduce((s, p, i) => {
@@ -36,14 +42,22 @@ export function buildFrontSurfacePanel(car, outlineIn, {
   if (area < 0) outline.reverse();
 
   const ray = new THREE.Raycaster();
-  const dir = new THREE.Vector3(0, 0, -out);
+  const dir = isUp ? new THREE.Vector3(0, -1, 0) : new THREE.Vector3(0, 0, -out);
   function surfZ(x, y) {
-    ray.set(new THREE.Vector3(x, y, 3 * out), dir);
+    // For 'up', y is the outline's plan-z and the returned depth is height.
+    ray.set(isUp ? new THREE.Vector3(x, 3, y) : new THREE.Vector3(x, y, 3 * out), dir);
+    // zBand may be a function (x, p) -> [lo, hi] when only hits near an
+    // expected surface should count (e.g. hood shell vs inner structure
+    // visible through an opening, both in the same target mesh).
+    const band = typeof zBand === 'function' ? zBand(x, y) : zBand;
     for (const hit of ray.intersectObjects(targets, false)) {
-      if (hit.point.z >= zBand[0] && hit.point.z <= zBand[1]) return hit.point.z;
+      const d = isUp ? hit.point.y : hit.point.z;
+      if (d >= band[0] && d <= band[1]) return d;
     }
-    return zFallback;
+    return typeof zFallback === 'function' ? zFallback(x, y) : zFallback;
   }
+  // Outline space is (x, y-or-planZ); depth lands on the remaining axis.
+  const pushV = (x, y, depth) => (isUp ? pos.push(x, depth, y) : pos.push(x, y, depth));
 
   // Front-most along the outward direction: max z for front, min for rear.
   const vertexZ = (x, y) => {
@@ -63,7 +77,7 @@ export function buildFrontSurfacePanel(car, outlineIn, {
       for (const p of outline) {
         const x = cx + (p.x - cx) * f;
         const y = cy + (p.y - cy) * f;
-        pos.push(x, y, vertexZ(x, y));
+        pushV(x, y, vertexZ(x, y));
       }
     }
     for (let r = 0; r < rings; r += 1) {
@@ -86,7 +100,7 @@ export function buildFrontSurfacePanel(car, outlineIn, {
     const minY = Math.min(...ys2);
     const maxY = Math.max(...ys2);
     const nx = Math.max(8, Math.ceil((maxX - minX) / 0.03));
-    const ny = Math.max(4, Math.ceil((maxY - minY) / 0.03));
+    const ny = Math.max(8, Math.ceil((maxY - minY) / 0.03));
 
     const inside = (x, y) => {
       let hit = false;
@@ -131,7 +145,7 @@ export function buildFrontSurfacePanel(car, outlineIn, {
       const edgeDist = onEdge ? 0 : Math.hypot(near.x - x, near.y - y);
       const fade = Math.min(1, edgeDist / 0.05);
       const id = pos.length / 3;
-      pos.push(x, y, vertexZ(x, y) - out * offset + out * offset * (0.15 + 0.85 * fade));
+      pushV(x, y, vertexZ(x, y) - out * offset + out * offset * (0.15 + 0.85 * fade));
       vid.set(key, id);
       return id;
     };
@@ -148,7 +162,9 @@ export function buildFrontSurfacePanel(car, outlineIn, {
     }
   }
 
-  if (facing === 'rear') {
+  // A CCW outline gives +z faces; mapping it to plan view flips chirality
+  // (param CCW becomes -y), so 'up' needs the same winding flip as 'rear'.
+  if (facing === 'rear' || isUp) {
     for (let i = 0; i < idx.length; i += 3) {
       const t = idx[i + 1];
       idx[i + 1] = idx[i + 2];
