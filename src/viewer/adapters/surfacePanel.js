@@ -12,6 +12,8 @@ import * as THREE from 'three';
 // opening in the shell: the profile follows the bumper's plan-view curve,
 // cannot fall through the hole, and clears any lip that juts forward
 // anywhere in the band.
+// facing: 'front' (+z, default) or 'rear' (-z). Rear panels raycast from
+// behind the car, stand off in -z, and flip winding so faces point -z.
 export function buildFrontSurfacePanel(car, outlineIn, {
   fStart = 0,
   rings = 4,
@@ -22,7 +24,9 @@ export function buildFrontSurfacePanel(car, outlineIn, {
   zBand = [1.9, 2.4],
   zFallback = 2.18,
   sweepY = null,
+  facing = 'front',
 }) {
+  const out = facing === 'rear' ? -1 : 1; // outward direction along z
   // Ensure counterclockwise outline (positive signed area) viewed from +z.
   const outline = [...outlineIn];
   const area = outline.reduce((s, p, i) => {
@@ -32,18 +36,19 @@ export function buildFrontSurfacePanel(car, outlineIn, {
   if (area < 0) outline.reverse();
 
   const ray = new THREE.Raycaster();
-  const dir = new THREE.Vector3(0, 0, -1);
+  const dir = new THREE.Vector3(0, 0, -out);
   function surfZ(x, y) {
-    ray.set(new THREE.Vector3(x, y, 3), dir);
+    ray.set(new THREE.Vector3(x, y, 3 * out), dir);
     for (const hit of ray.intersectObjects(targets, false)) {
       if (hit.point.z >= zBand[0] && hit.point.z <= zBand[1]) return hit.point.z;
     }
     return zFallback;
   }
 
+  // Front-most along the outward direction: max z for front, min for rear.
   const vertexZ = (x, y) => {
     const ys = sweepY == null ? [y] : [].concat(sweepY);
-    return Math.max(...ys.map((sy) => surfZ(x, sy))) + offset;
+    return out * Math.max(...ys.map((sy) => out * surfZ(x, sy))) + out * offset;
   };
 
   const pos = [];
@@ -126,7 +131,7 @@ export function buildFrontSurfacePanel(car, outlineIn, {
       const edgeDist = onEdge ? 0 : Math.hypot(near.x - x, near.y - y);
       const fade = Math.min(1, edgeDist / 0.05);
       const id = pos.length / 3;
-      pos.push(x, y, vertexZ(x, y) - offset + offset * (0.15 + 0.85 * fade));
+      pos.push(x, y, vertexZ(x, y) - out * offset + out * offset * (0.15 + 0.85 * fade));
       vid.set(key, id);
       return id;
     };
@@ -143,6 +148,13 @@ export function buildFrontSurfacePanel(car, outlineIn, {
     }
   }
 
+  if (facing === 'rear') {
+    for (let i = 0; i < idx.length; i += 3) {
+      const t = idx[i + 1];
+      idx[i + 1] = idx[i + 2];
+      idx[i + 2] = t;
+    }
+  }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setIndex(idx);

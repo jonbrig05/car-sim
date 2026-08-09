@@ -12,7 +12,57 @@ export function adaptDE5Approx(scene) {
   removeWing(car);
   removeBadges(car);
   reshapeGrille(car);
+  reshapeRear(car);
   return car;
+}
+
+// DE5 rear approximation: an emissive lightbar projected onto the hatch
+// face (the model's own garnish strip lives in a shadowed groove, unusable),
+// riding over the smoked corner clusters so it spans the full width. The
+// Civic clusters become translucent smoked lenses, muting their L-shaped
+// signature while keeping lens depth.
+const LIGHTBAR = [
+  { x: -0.72, y: 0.925 },
+  { x: 0.72, y: 0.925 },
+  { x: 0.78, y: 0.895 },
+  { x: 0.72, y: 0.865 },
+  { x: -0.72, y: 0.865 },
+  { x: -0.78, y: 0.895 },
+];
+
+function reshapeRear(car) {
+  const smoke = new THREE.MeshPhysicalMaterial({
+    color: 0x150a0c,
+    roughness: 0.22,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.08,
+    transparent: true,
+    opacity: 0.45,
+  });
+  for (const name of ['taillight', 'taillight_2', 'taillight_3']) {
+    const mesh = car.getObjectByName(name);
+    if (mesh) mesh.material = smoke;
+  }
+
+  const targets = ['body_paint', 'trim_black', 'trim_black_2', 'taillight', 'taillight_3']
+    .map((n) => car.getObjectByName(n))
+    .filter(Boolean);
+  buildFrontSurfacePanel(car, LIGHTBAR, {
+    facing: 'rear',
+    offset: 0.008,
+    zBand: [-2.35, -1.8],
+    zFallback: -2.1,
+    name: 'taillight_bar',
+    targets,
+    material: new THREE.MeshPhysicalMaterial({
+      color: 0x2a0407,
+      emissive: new THREE.Color(0xd0182a),
+      emissiveIntensity: 2.2,
+      roughness: 0.2,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
+    }),
+  });
 }
 
 // Acura "diamond pentagon" grille, approximated as surface-conforming
