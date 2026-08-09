@@ -18,8 +18,12 @@ viewer.start();
 // have. 'de5a' opts into the DE5-from-FL5 approximation (on hold).
 // Chassis resolves first because the factory palette depends on it
 // (de5a shows the Integra colors; untagged DB entries count as de5).
+// DE5 approximation is switched off for the Civic-only pilot: the adapter's
+// geometry rework stalls phones for several seconds. Flip to true to bring
+// back the HUD toggle and c=de5a links (code, data, palette all intact).
+const DE5A_ENABLED = false;
 const decoded = decodeBuildHash(location.hash, db);
-const chassis = CHASSIS_IDS.includes(decoded.chassis) ? decoded.chassis : 'fl5';
+const chassis = DE5A_ENABLED && CHASSIS_IDS.includes(decoded.chassis) ? decoded.chassis : 'fl5';
 const palette = chassis === 'fl5' ? 'fl5' : 'de5';
 const paletteColors = db.factory_colors.filter((c) => (c.chassis ?? 'de5') === palette);
 const build = {
@@ -105,15 +109,19 @@ for (const [name, view] of Object.entries(CAMERA_PRESETS)) {
 // disposed meshes), so switching chassis is a hash update + page reload, not
 // an in-place swap.
 const chassisBar = document.getElementById('chassis');
-for (const btn of chassisBar.querySelectorAll('button')) {
-  btn.classList.toggle('selected', btn.dataset.chassis === build.chassis);
-  btn.addEventListener('click', () => {
-    if (btn.dataset.chassis === build.chassis) return;
-    build.chassis = btn.dataset.chassis;
-    const hash = encodeBuildHash(build);
-    history.replaceState(null, '', hash === DEFAULT_HASH || !hash ? location.pathname : hash);
-    location.reload();
-  });
+if (!DE5A_ENABLED) {
+  chassisBar.style.display = 'none';
+} else {
+  for (const btn of chassisBar.querySelectorAll('button')) {
+    btn.classList.toggle('selected', btn.dataset.chassis === build.chassis);
+    btn.addEventListener('click', () => {
+      if (btn.dataset.chassis === build.chassis) return;
+      build.chassis = btn.dataset.chassis;
+      const hash = encodeBuildHash(build);
+      history.replaceState(null, '', hash === DEFAULT_HASH || !hash ? location.pathname : hash);
+      location.reload();
+    });
+  }
 }
 if (build.chassis !== 'fl5') {
   document.querySelector('#hud .title').textContent = 'DE5 Integra Type S';
