@@ -20,8 +20,14 @@ function el(tag, className, text) {
   return node;
 }
 
-function needsFitmentFlag(notes) {
-  return notes ? /FL5|FK8|verify|confirm|fitment uncertain/i.test(notes) : false;
+// verify_chassis lists the chassis where fitment is unconfirmed (a part sold
+// for one car, cross-listed for the other). Chassis-tagged entries flag only
+// through it; untagged legacy entries fall back to sniffing the notes (which
+// misfires on tagged parts, e.g. "FL5-specific" in an FL5 panel).
+function needsFitmentFlag(item, paletteKey) {
+  if (item.verify_chassis) return item.verify_chassis.includes(paletteKey);
+  if (item.chassis) return false;
+  return item.notes ? /FL5|FK8|verify|confirm|fitment uncertain/i.test(item.notes) : false;
 }
 
 export function initPanel(root, { db, actions, chassis }) {
@@ -110,7 +116,7 @@ export function initPanel(root, { db, actions, chassis }) {
       labelWrap.appendChild(el('span', null, label(item)));
       const subText = sub(item);
       if (subText) labelWrap.appendChild(el('span', 'pick-sub', subText));
-      if (needsFitmentFlag(item.notes)) {
+      if (needsFitmentFlag(item, paletteKey)) {
         const flag = el('span', 'flag-badge', 'verify fitment');
         flag.title = item.notes;
         labelWrap.appendChild(flag);
@@ -124,9 +130,13 @@ export function initPanel(root, { db, actions, chassis }) {
     return sec;
   }
 
+  // Parts carry a chassis list; untagged entries fit both cars (wheels: the
+  // FL5/DE5 share hub/fitment specs, so the wheel catalog is universal).
+  const fitsChassis = (i) => (i.chassis ?? ['de5', 'fl5']).includes(paletteKey);
+
   pickerSection(
     'Suspension', 'Drops render live on the car.',
-    db.suspension,
+    db.suspension.filter(fitsChassis),
     {
       key: 'susp',
       label: (i) => `${i.brand} ${i.product}`,
@@ -153,8 +163,8 @@ export function initPanel(root, { db, actions, chassis }) {
   );
 
   pickerSection(
-    'Exhaust', 'All triple center except the A\'PEXi dual conversion.',
-    db.exhausts,
+    'Exhaust', 'Cat-backs keep the factory triple center exit; exceptions noted per item.',
+    db.exhausts.filter(fitsChassis),
     {
       key: 'exh',
       label: (i) => `${i.brand} ${i.product}`,
@@ -253,10 +263,11 @@ export function initPanel(root, { db, actions, chassis }) {
   return { setBuild };
 }
 
-// Flatten the build state into sheet line items. Baseline mods are already
-// on the car, so they list at $0.
+// Flatten the build state into sheet line items. Baseline mods are what is
+// already on Jon's DE5, so they list at $0 and only in Integra mode; the
+// Civic baseline is a stock car.
 export function buildItems(build) {
-  const items = [
+  const items = build.chassis === 'fl5' ? [] : [
     { name: 'PRL High Volume Intake', price: 0, installed: true },
     { name: 'Wheel spacers', price: 0, installed: true },
   ];
