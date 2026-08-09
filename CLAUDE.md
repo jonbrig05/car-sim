@@ -4,7 +4,7 @@
 
 A web-based 3D configurator for Jon's 2024 Acura Integra Type S (chassis DE5). Goal: visualize real, purchasable mods on an accurate model of the car before buying them. Swap wheels, lower it, change paint/wraps and finishes, add aero and carbon parts, and view a carbon-trimmed interior. Every option in the UI maps to a real product with a brand, approximate price, and vendor link, so a saved build doubles as a shopping list.
 
-Distribution plan: release to the Integra community first, then to Civic folks. The FL5 Civic Type R is a supported chassis (currently the working model; later a DE5/FL5 toggle). Build every mod system chassis-agnostic so adding a chassis is data, not code. The FL5 model (CC-BY, Mona x Supercars on Sketchfab) requires visible attribution in the app wherever it ships.
+Distribution plan: no real DE5 model exists anywhere (checked Aug 2026; paid ones forbid redistribution), so the FL5 Civic Type R is the presented default chassis. A HUD toggle (share hash `c=de5a`) opts into the DE5-from-FL5 approximation, currently on hold. Build every mod system chassis-agnostic so adding a chassis is data, not code. The FL5 model (CC-BY, Mona x Supercars on Sketchfab) requires visible attribution in the app wherever it ships.
 
 ## The actual car (baseline)
 

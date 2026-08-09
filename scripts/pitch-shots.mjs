@@ -14,17 +14,19 @@ const CHROME =
   process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
 // Each shot is a share-hash build plus a camera preset button label.
+// c=de5a is pinned: this is the Integra pitch set, and since the FL5 became
+// the default chassis a bare hash would capture the Civic instead.
 const SHOTS = [
-  { file: 'pwp-front34.png', hash: '', preset: 'front 3/4' },
+  { file: 'pwp-front34.png', hash: '#c=de5a', preset: 'front 3/4' },
   {
     file: 'red-titan7-eibach-front34.png',
-    hash: '#p=f.performance-red-pearl,s=eibach-pro-kit-springs,wh=titan-7-t-s5',
+    hash: '#c=de5a,p=f.performance-red-pearl,s=eibach-pro-kit-springs,wh=titan-7-t-s5',
     preset: 'front 3/4',
   },
-  { file: 'black-rear34-lightbar.png', hash: '#p=f.majestic-black-pearl', preset: 'rear 3/4' },
+  { file: 'black-rear34-lightbar.png', hash: '#c=de5a,p=f.majestic-black-pearl', preset: 'rear 3/4' },
   {
     file: 'red-titan7-wheel-closeup.png',
-    hash: '#p=f.performance-red-pearl,s=eibach-pro-kit-springs,wh=titan-7-t-s5',
+    hash: '#c=de5a,p=f.performance-red-pearl,s=eibach-pro-kit-springs,wh=titan-7-t-s5',
     // The wheel preset crops badly at 16:9, so frame off the real hub instead:
     // camera just outside the front wheel, slightly ahead and above hub height.
     customCamera: true,

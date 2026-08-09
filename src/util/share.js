@@ -14,6 +14,10 @@ const exhaustSlug = (item) => slug(`${item.brand} ${item.product}`);
 
 export function encodeBuildHash(build) {
   const parts = [];
+  // fl5 (the real model) is the default chassis; only deviations are encoded.
+  // NOTE: pre-flip links without c= used to mean the DE5 approximation and now
+  // resolve to the Civic - deliberate, the approximation is opt-in.
+  if (build.chassis && build.chassis !== 'fl5') parts.push(`c=${build.chassis}`);
   if (build.paint) {
     parts.push(`p=${build.paint.type === 'wrap' ? 'w' : 'f'}.${paintSlug(build.paint.item)}`);
   }
@@ -31,7 +35,9 @@ export function decodeBuildHash(hash, db) {
   for (const part of hash.slice(1).split(',')) {
     const [key, value] = part.split('=');
     if (!value) continue;
-    if (key === 'p') {
+    if (key === 'c') {
+      out.chassis = value; // validated against the chassis registry in main
+    } else if (key === 'p') {
       const [kind, ...rest] = value.split('.');
       const wanted = rest.join('.');
       if (kind === 'f') {

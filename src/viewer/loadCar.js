@@ -17,16 +17,20 @@ const CHASSIS = [
   { id: 'fl5', label: 'Civic Type R (FL5)', url: 'models/fl5.glb', adapt: adaptFL5 },
 ];
 
-// Loads the first chassis model that exists, preferring the DE5, otherwise
-// returns the placeholder proxy so every downstream system can be built
-// before a model exists.
-export async function loadCar() {
+export const CHASSIS_IDS = CHASSIS.map((c) => c.id);
+
+// Loads the first chassis model that exists, preferring `preferredId` when
+// given (registry order otherwise), falling back to the placeholder proxy so
+// every downstream system can be built before a model exists.
+export async function loadCar(preferredId) {
   const loader = new GLTFLoader();
   const draco = new DRACOLoader();
   draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
   loader.setDRACOLoader(draco);
 
-  for (const chassis of CHASSIS) {
+  const preferred = CHASSIS.find((c) => c.id === preferredId);
+  const order = preferred ? [preferred, ...CHASSIS.filter((c) => c !== preferred)] : CHASSIS;
+  for (const chassis of order) {
     try {
       const gltf = await loader.loadAsync(chassis.url);
       const car = chassis.adapt ? chassis.adapt(gltf.scene) : gltf.scene;

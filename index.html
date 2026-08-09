@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DE5 Configurator</title>
+    <title>FL5 Configurator</title>
     <style>
       :root {
         --panel-bg: rgba(16, 16, 20, 0.92);
@@ -38,6 +38,19 @@
       }
       #hud .title { font-weight: 600; font-size: 14px; }
       #hud .sub { opacity: 0.65; }
+      #chassis { display: flex; gap: 4px; margin-top: 8px; }
+      #chassis button {
+        pointer-events: auto;
+        padding: 3px 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 11px;
+        cursor: pointer;
+      }
+      #chassis button:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--panel-fg); }
+      #chassis button.selected { border-color: var(--accent); color: var(--panel-fg); }
 
       #presets {
         position: fixed;
@@ -239,8 +252,12 @@
   <body>
     <div id="app"></div>
     <div id="hud">
-      <div class="title">DE5 Integra Type S</div>
+      <div class="title">FL5 Civic Type R</div>
       <div class="sub" id="hud-status">loading&hellip;</div>
+      <div id="chassis">
+        <button data-chassis="fl5">Civic FL5</button>
+        <button data-chassis="de5a">Integra (approx)</button>
+      </div>
     </div>
     <div id="presets"></div>
     <aside id="panel"></aside>

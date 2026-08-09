@@ -1,5 +1,5 @@
 import { createViewer, CAMERA_PRESETS } from './viewer/scene.js';
-import { loadCar } from './viewer/loadCar.js';
+import { loadCar, CHASSIS_IDS } from './viewer/loadCar.js';
 import { createFactoryPaint, createWrapMaterial, applyPaint } from './materials/paint.js';
 import { applyStance } from './mods/stance.js';
 import { applyWheels } from './mods/wheels.js';
@@ -15,6 +15,9 @@ viewer.start();
 
 // Build state. paint is {type: 'factory'|'wrap', item}; null part = stock.
 const build = {
+  // FL5 Civic is the presented default: it is the model we actually have.
+  // 'de5a' opts into the DE5-from-FL5 approximation (on hold, experimental).
+  chassis: 'fl5',
   paint: { type: 'factory', item: db.factory_colors[0] }, // Platinum White Pearl
   suspension: null,
   wheels: null,
@@ -22,6 +25,7 @@ const build = {
 };
 // A shared link restores its build over the defaults.
 Object.assign(build, decodeBuildHash(location.hash, db));
+if (!CHASSIS_IDS.includes(build.chassis)) build.chassis = 'fl5';
 const DEFAULT_HASH = encodeBuildHash({ paint: { type: 'factory', item: db.factory_colors[0] } });
 
 let car = null;
@@ -90,7 +94,26 @@ for (const [name, view] of Object.entries(CAMERA_PRESETS)) {
   presetBar.appendChild(btn);
 }
 
-loadCar().then(({ car: loaded, source }) => {
+// Chassis toggle: adapters mutate geometry destructively (baked transforms,
+// disposed meshes), so switching chassis is a hash update + page reload, not
+// an in-place swap.
+const chassisBar = document.getElementById('chassis');
+for (const btn of chassisBar.querySelectorAll('button')) {
+  btn.classList.toggle('selected', btn.dataset.chassis === build.chassis);
+  btn.addEventListener('click', () => {
+    if (btn.dataset.chassis === build.chassis) return;
+    build.chassis = btn.dataset.chassis;
+    const hash = encodeBuildHash(build);
+    history.replaceState(null, '', hash === DEFAULT_HASH || !hash ? location.pathname : hash);
+    location.reload();
+  });
+}
+if (build.chassis !== 'fl5') {
+  document.querySelector('#hud .title').textContent = 'DE5 Integra Type S';
+  document.title = 'DE5 Configurator';
+}
+
+loadCar(build.chassis).then(({ car: loaded, source }) => {
   car = loaded;
   viewer.scene.add(car);
   viewer.frameObject(car);
